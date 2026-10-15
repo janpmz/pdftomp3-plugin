@@ -5,6 +5,7 @@ Create audiobooks with PDFTOMP3. This Codex plugin helps your AI to prepare text
 The plugin runs locally in Codex and requires Python 3.10 or later. It has no extra Python dependencies and connects to the live PDFTOMP3 service.
 
 The audiobook will appear in your library on the website: https://pdftomp3.com/
+
 Set your API-Key here: https://pdftomp3.com/connect-ai/
 
 
