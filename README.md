@@ -2,7 +2,7 @@
 
 Create audiobooks with PDFTOMP3. This Codex plugin helps your AI to prepare text for reading aloud, explain key ideas, or generate multi-speaker conversations. PDFTOMP3 then converts that text into MP3 files on our servers.
 
-The plugin runs locally in Codex and requires Python 3.10 or later. It has no extra Python dependencies and connects to the live PDFTOMP3 service.
+The plugin includes the PDFTOMP3-MCP connection and connects to the live PDFTOMP3 service. Codex handles sign-in. You need no Python, helper program, or separate MCP setup.
 
 The audiobook will appear in your library on the website: https://pdftomp3.com/
 
@@ -16,13 +16,15 @@ Audio examples: https://pdftomp3.com/examples/
 2. In Codex, open **Plugins** → **Add** → **Add a marketplace**.
 3. Paste the URL into **Source** and click **Add marketplace**. Leave the branch and path fields empty to use the default branch and root.
 4. Select the **PDFTOMP3-Plugin** marketplace and click **Install** on **PDFTOMP3-Plugin**.
-5. Start a new chat and ask:
+5. When Codex asks to connect, sign in to PDFTOMP3 in your browser and click **Connect**. Then start a new chat.
+
+If you need help with the connection or speech setup, ask:
 
 ```text
 Set up PDFTOMP3-Plugin and connect my account.
 ```
 
-The helper opens your browser. Sign in to PDFTOMP3 and click **Connect**. If speech setup is incomplete, Codex provides a link to save or select your own OpenAI or Gemini speech key. Enter the key on that site—never in the chat.
+If speech setup is incomplete, Codex provides a link to save or select your own OpenAI or Gemini speech key. Enter the key on that site—never in the chat. If you already have a speech key saved and selected, you can use it.
 
 ## Create your first audiobook
 
@@ -38,9 +40,9 @@ Your AI chat’s plan and limits cover text preparation. For the finished audiob
 
 ## Sign-in and saved keys
 
-The helper stores sign-in tokens as plain text in your user data folder (outside this repository) and restricts file access to your account. Other apps running as you, or administrators, can still access them. Speech keys remain on the website.
+Codex manages the MCP connection and saved sign-in. The plugin does not keep its own token file. Speech keys remain on the website.
 
-Ask Codex to disconnect PDFTOMP3-Plugin to sign out. You can also revoke the connection on the website.
+Use the plugin's connection controls in Codex to disconnect. You can also revoke the connection on the website.
 
 ## Use the terminal
 
@@ -49,7 +51,7 @@ codex plugin marketplace add janpmz/pdftomp3-plugin
 codex plugin add pdftomp3-plugin@pdftomp3-plugin
 ```
 
-Then start a new chat and run the setup prompt above.
+Complete the connection in Codex, then start a new chat.
 
 ## Updates
 
@@ -59,5 +61,7 @@ Refresh the PDFTOMP3-Plugin marketplace, reinstall the plugin, and start a new c
 codex plugin marketplace upgrade pdftomp3-plugin
 codex plugin add pdftomp3-plugin@pdftomp3-plugin
 ```
+
+If you used version 0.1.x, connect once through Codex after updating. The plugin does not import the old Python helper's saved sign-in. You can revoke that old connection on the website.
 
 See the [OpenAI plugin guide](https://developers.openai.com/plugins/build/plugins#add-a-marketplace-from-the-cli) for more on GitHub marketplace sources.

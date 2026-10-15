@@ -1,19 +1,14 @@
 ---
 name: pdftomp3-plugin-setup
-description: Install the PDFTOMP3-Plugin helper, connect the user's account, or fix its sign-in and speech setup.
+description: Connect PDFTOMP3-Plugin through Codex and check the user's speech setup.
 ---
 
-Use the bundled helper at `../pdftomp3-plugin/scripts/pdftomp3.py`, resolved from this skill's folder. Use its full path in commands. It runs on the user's computer and needs Python 3.10 or later.
+The plugin includes the PDFTOMP3-MCP connection. Codex loads its server address and handles browser sign-in and saved access. The user needs no Python, helper download, terminal command, or separate MCP setup.
 
-On Windows, use `py -3` if `python3` is not available. Keep the same helper path and arguments.
+1. Use the bundled PDFTOMP3-MCP tools. If Codex asks to connect, let the user sign in to PDFTOMP3 in the browser and choose Connect. If the tools are missing or access has ended, direct the user to the plugin's Connect or Reconnect control in Codex. After connecting, start a new chat if the tools are still missing. Do not create a second MCP connection or use shell commands to sign in.
+2. Call `get_speech_setup`. If `needs_setup` is true, show `settings_url` as a link. Ask the user to save or select their own OpenAI or Gemini speech key there, then call `get_speech_setup` again. Never ask for a key or password in chat.
+3. Once the connection and speech setup work, tell the user they can attach a PDF and ask PDFTOMP3-Plugin to read or explain it. Setup does not prepare documents or request paid speech.
 
-1. Run `python3 <helper> install`. It prepares the user's data folder and returns `sign_in_file`, the path where it will save sign-in tokens as plain text JSON. It needs no extra Python packages.
-2. Run `python3 <helper> status`. If it reports `SIGN_IN_REQUIRED`, or `connected: false`, run `python3 <helper> login`. Keep the process running while the user signs in. Show its returned sign-in link if the browser did not open. Finish the same process; do not start a second login.
-3. Check `python3 <helper> speech-setup`. If `needs_setup` is true, show `settings_url` as a link. Tell the user to save or select their own OpenAI or Gemini speech key there, then check again. Never ask for a key or password in chat.
-4. Once connected, tell the user they can attach a document and ask PDFTOMP3-Plugin to read or explain it.
+Let Codex manage sign-in tokens. Do not read, print, move, or import saved credentials. Users upgrading from the old Python helper must connect once through Codex; do not reuse that helper's token file.
 
-No MCP connection is needed. The helper calls the website's API and renews sign-in as needed. Use `logout` when the user asks to disconnect. It revokes access before removing the saved sign-in. A failed sign-out still needs another attempt or Disconnect on the website.
-
-Let the helper manage its sign-in file and set access for the user's account. Do not read it into chat, print its contents, or copy it into the task or plugin folder. If the helper cannot set access rules, save the file, or read it, report its message. Do not bypass the file access checks.
-
-Use the server address shipped with the helper. The install result shows it as `api_url`. Override it with `--api-url` only when the user asks to use a different server. Setup makes no speech requests.
+When the user asks to sign out, use Codex's connection controls. To revoke access on the server, direct them to Connections on the PDFTOMP3 website.

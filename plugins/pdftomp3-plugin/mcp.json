@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "PDFTOMP3-MCP": {
+      "type": "streamable-http",
+      "url": "https://pdftomp3.com/mcp"
+    }
+  }
+}

@@ -1,18 +1,18 @@
 # Prepared documents
 
-In these commands, `<helper>` means the full path to `../scripts/pdftomp3.py`. Put request files in the task's workspace, outside the installed plugin. Use UTF-8 JSON. The helper also accepts `--input -` to read a request from standard input.
+Use the prepared-document tools from the plugin's PDFTOMP3-MCP connection. Pass the JSON below as tool arguments; no command files or helper are needed.
 
-1. Check `speech-setup`, then run `voices`. Use only returned voice IDs. For an existing document, use `voices --document-id <id>` to get its saved speech service and model.
+1. Call `get_speech_setup`, then `list_speech_voices`. Use only returned voice IDs. For an existing document, pass `document_id` to `list_speech_voices` to get its saved speech service and model.
 2. Write the chapters and spoken text from the source in this chat, following the writing guide in [SKILL.md](../SKILL.md).
-3. Choose a fresh `request_id` for each new draft. Run `begin --input <draft.json>` and save the returned `document_id`. Keep that request ID for retries.
-4. Run `chapter --input <chapter.json>` for each top-level chapter, in order from index zero.
-5. Run `finish --document-id <id>` after every chapter is saved. This seals the text and starts no paid work.
-6. When the user requests speech, run `audio --document-id <id> --paid-audio`. Return its player link.
-7. Check progress and speech cost with `get --document-id <id>`. Use a short wait between checks; do not keep polling unchanged work.
+3. Choose a fresh `request_id` for each new draft. Call `begin_document_preparation` and save the returned `document_id`. Keep that request ID for retries.
+4. Call `save_document_chapter` for each top-level chapter, in order from index zero.
+5. Call `finish_document_preparation` with `document_id` after every chapter is saved. This seals the text and starts no paid work.
+6. When the user requests speech, call `start_prepared_document_audio` with `document_id`. Return its player link.
+7. Check progress and speech cost with `get_prepared_document`. Use a short wait between checks; do not keep polling unchanged work.
 
 ## Normal reading or explanations
 
-Start a draft:
+Call `begin_document_preparation`:
 
 ```json
 {
@@ -28,7 +28,7 @@ Start a draft:
 
 Use `original` to keep the wording, with small changes for speech. Use `teacher` when the user asks for plain explanations. An optional `default_voice` must match a returned voice ID. Omitting it uses the service's default. `chapter_count` counts only top-level chapters.
 
-Send a chapter:
+Call `save_document_chapter`:
 
 ```json
 {
