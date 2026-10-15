@@ -1,0 +1,20 @@
+{
+  "name": "pdftomp3-plugin",
+  "interface": {
+    "displayName": "PDFTOMP3-Plugin"
+  },
+  "plugins": [
+    {
+      "name": "pdftomp3-plugin",
+      "source": {
+        "source": "local",
+        "path": "./plugins/pdftomp3-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

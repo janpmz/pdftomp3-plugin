@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "pdftomp3-plugin",
+  "version": "0.1.5",
+  "description": "Prepare documents in your AI chat and listen with PDFTOMP3-Plugin.",
+  "extensions": {
+    "com.openai": {
+      "requires_local_executor": true,
+      "onboardingSkill": "./skills/pdftomp3-plugin-setup/SKILL.md",
+      "interface": {
+        "displayName": "PDFTOMP3-Plugin",
+        "shortDescription": "Prepare documents and listen",
+        "longDescription": "Use PDFTOMP3-Plugin to read a PDF in Codex, write its spoken text, and send it to your PDF TO MP3 account. Choose a voice or use several speakers for reading, explanations, and summaries. Your saved OpenAI or Gemini key pays for speech. The helper runs on your computer and connects through browser sign-in.",
+        "developerName": "JAN PETER METZ",
+        "category": "Productivity",
+        "websiteURL": "https://pdftomp3.com/"
+      }
+    }
+  },
+  "homepage": "https://pdftomp3.com/"
+}
